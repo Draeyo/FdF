@@ -1,1 +1,0 @@
-conversion bmp : https://github.com/wwatkins42/RT/blob/master/src/bmp_exporter.c
