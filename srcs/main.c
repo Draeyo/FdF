@@ -1,24 +1,65 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vlistrat <vlistrat@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/09/03 09:31:22 by vlistrat          #+#    #+#             */
+/*   Updated: 2016/11/01 08:43:51 by vlistrat         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
-int		main(void)
+static void		recalc_xy(t_fdf *lst)
 {
-//	void	*mlx;
-//	void	*win;
-	t_pnt	*addr;
-	t_map	*map;
-	int	x;
-	int	y;
+	int		testx;
+	int		testy;
 
-	x = 100;
-	y = 100;
+	testx = (((LEN_X * DX) + (LEN_Y * DX)) * 1.5);
+	testy = (((LEN_Y * DY) + (LEN_X * DY) + ((LENMAX * 3) * DY) + LENMAX));
+	if (testx > 1800 || testy > 1012)
+	{
+		while (testx > 1800 || testy > 1012)
+		{
+			if (DX == 2 && DY == 1 && (testx > 1800 || testy > 1012))
+				ft_error_fdf(1);
+			if (DX > 2 && testx > 1800)
+				DX--;
+			if (DY > 1 && testy > 1012)
+				DY--;
+			testx = (((LEN_X * DX) + (LEN_Y * DX)) * 1.5);
+			testy = (((LEN_Y * DY) + (LEN_X * DY) + ((LENMAX * 3) * DY) + LENMAX));
+		}
+	}
+}
+
+int				main(int ac, char **av)
+{
+	int		fd;
+	t_fdf	*lst;
+	t_pnt	*addr;
+	t_img	*image;
+
+	fd = 0;
+	if (ac != 2)
+		return (0);
 	addr = (t_pnt*)malloc(sizeof(*addr));
-	map = (t_map*)malloc(sizeof(*map));
-	addr->mlx = mlx_init();
-	addr->win = mlx_new_window(addr->mlx, 400, 400, "FdF");
-	mlx_pixel_put(addr->mlx, addr->win, x, y, 0xFFFFFF);
-//	mlx_key_hook(win, close_key, 0);
-	mlx_loop(addr->mlx);
-	free(addr);
-	free(map);
+	lst = (t_fdf*)malloc(sizeof(*lst));
+	image = (t_img*)malloc(sizeof(*image));
+	MLX = mlx_init();
+	struct_init(lst, image, addr);
+	MAP = ft_read(lst, av[1]);
+	COORD = get_coord(lst, MAP);
+	LENMAX = calc_len_max(lst);
+	recalc_xy(lst);
+	WIN_X = (((LEN_X * DX) + (LEN_Y * DX)) * 1.5);
+	WIN_Y = (((LEN_Y * DY) + (LEN_X * DY) + ((LENMAX * 3) * DY) + LENMAX));
+	WIN = mlx_new_window(MLX, WIN_X, WIN_Y, "FdF");
+	ft_put_img(lst, image, addr);
+	mlx_key_hook(WIN, close_key, &lst);
+	mlx_loop(MLX);
+	ft_free_listes(lst, addr, image);
 	return (0);
 }

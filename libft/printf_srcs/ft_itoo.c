@@ -1,20 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   close_key.c                                        :+:      :+:    :+:   */
+/*   ft_itoo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlistrat <vlistrat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/09/04 11:36:50 by vlistrat          #+#    #+#             */
-/*   Updated: 2016/09/15 16:09:13 by vlistrat         ###   ########.fr       */
+/*   Created: 2016/01/11 16:17:55 by vlistrat          #+#    #+#             */
+/*   Updated: 2016/08/21 14:15:42 by vlistrat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "ft_printf.h"
 
-int		close_key(int keycode, void *param)
+uintmax_t		ft_itoo(uintmax_t nb)
 {
-	if (keycode == 53)
-		exit(EXIT_SUCCESS);
-	return (0);
+	uintmax_t		ret;
+	uintmax_t		mult;
+
+	ret = 0;
+	mult = 1;
+	if (nb == 0)
+		return (0);
+	while (nb)
+	{
+		ret += nb % 8 * mult;
+		mult *= 10;
+		nb /= 8;
+	}
+	return (ret);
 }

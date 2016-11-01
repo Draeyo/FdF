@@ -1,20 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   close_key.c                                        :+:      :+:    :+:   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlistrat <vlistrat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/09/04 11:36:50 by vlistrat          #+#    #+#             */
-/*   Updated: 2016/09/15 16:09:13 by vlistrat         ###   ########.fr       */
+/*   Created: 2016/01/06 17:22:42 by vlistrat          #+#    #+#             */
+/*   Updated: 2016/08/30 14:38:35 by vlistrat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "ft_printf.h"
 
-int		close_key(int keycode, void *param)
+int		ft_printf(const char *format, ...)
 {
-	if (keycode == 53)
-		exit(EXIT_SUCCESS);
-	return (0);
+	int			i;
+	int			j;
+	va_list		ap;
+	t_print		*lst;
+
+	i = 0;
+	j = 0;
+	lst = (t_print*)malloc(sizeof(*lst));
+	va_start(ap, format);
+	while (format[i])
+	{
+		if (format[i] == '%')
+		{
+			i += ft_conv_tag(&format[i], lst);
+			j += ft_tag(ap, lst);
+		}
+		else
+		{
+			j += ft_putchar(format[i]);
+			i++;
+		}
+	}
+	va_end(ap);
+	free(lst);
+	return (j);
 }

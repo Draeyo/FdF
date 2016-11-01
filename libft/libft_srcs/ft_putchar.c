@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   close_key.c                                        :+:      :+:    :+:   */
+/*   ft_putchar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlistrat <vlistrat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/09/04 11:36:50 by vlistrat          #+#    #+#             */
-/*   Updated: 2016/09/15 16:09:13 by vlistrat         ###   ########.fr       */
+/*   Created: 2015/11/25 12:05:49 by vlistrat          #+#    #+#             */
+/*   Updated: 2016/05/23 10:51:54 by vlistrat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "libft.h"
 
-int		close_key(int keycode, void *param)
+int	ft_putchar(char c)
 {
-	if (keycode == 53)
-		exit(EXIT_SUCCESS);
+	if (c)
+		return ((int)write(1, &c, 1));
 	return (0);
 }

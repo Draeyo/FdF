@@ -1,20 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   close_key.c                                        :+:      :+:    :+:   */
+/*   ft_strnewcpy.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlistrat <vlistrat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/09/04 11:36:50 by vlistrat          #+#    #+#             */
-/*   Updated: 2016/09/15 16:09:13 by vlistrat         ###   ########.fr       */
+/*   Created: 2016/02/17 17:17:59 by vlistrat          #+#    #+#             */
+/*   Updated: 2016/02/17 17:18:06 by vlistrat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "ft_printf.h"
 
-int		close_key(int keycode, void *param)
+char	*ft_strnewcpy(char *str)
 {
-	if (keycode == 53)
-		exit(EXIT_SUCCESS);
-	return (0);
+	char	*ret;
+	int		i;
+
+	ret = ft_strnew((int)ft_strlen(str));
+	i = 0;
+	while (str[i])
+	{
+		ret[i] = str[i];
+		i++;
+	}
+	return (ret);
 }

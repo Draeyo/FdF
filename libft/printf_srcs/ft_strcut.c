@@ -1,20 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   close_key.c                                        :+:      :+:    :+:   */
+/*   ft_strcut.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlistrat <vlistrat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/09/04 11:36:50 by vlistrat          #+#    #+#             */
-/*   Updated: 2016/09/15 16:09:13 by vlistrat         ###   ########.fr       */
+/*   Created: 2015/11/26 11:53:36 by vlistrat          #+#    #+#             */
+/*   Updated: 2016/02/10 17:08:12 by vlistrat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "ft_printf.h"
 
-int		close_key(int keycode, void *param)
+char	*ft_strcut(char *str, int n)
 {
-	if (keycode == 53)
-		exit(EXIT_SUCCESS);
-	return (0);
+	int		i;
+	char	*ret;
+
+	i = 0;
+	ret = ft_strnew(ft_strlen(str) + n);
+	while (str[i] && i < n)
+	{
+		ret[i] = str[i];
+		i++;
+	}
+	return (ret);
 }

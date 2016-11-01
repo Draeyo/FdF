@@ -1,20 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   close_key.c                                        :+:      :+:    :+:   */
+/*   ft_conv_c.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlistrat <vlistrat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/09/04 11:36:50 by vlistrat          #+#    #+#             */
-/*   Updated: 2016/09/15 16:09:13 by vlistrat         ###   ########.fr       */
+/*   Created: 2016/01/11 15:40:06 by vlistrat          #+#    #+#             */
+/*   Updated: 2016/08/30 16:19:03 by vlistrat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "ft_printf.h"
 
-int		close_key(int keycode, void *param)
+int		ft_conv_c(va_list ap, t_print *lst)
 {
-	if (keycode == 53)
-		exit(EXIT_SUCCESS);
+	char	c;
+	int		a;
+
+	c = 0;
+	a = 0;
+	if ((MODIF && ft_strstr(MODIF, "l") && CONV == 'c') || CONV == 'C')
+		return (ft_conv_wc(ap, lst));
+	else if (!MODIF && CONV == 'c')
+	{
+		c = va_arg(ap, int);
+		return (ft_padding_str(lst, &c));
+	}
 	return (0);
 }

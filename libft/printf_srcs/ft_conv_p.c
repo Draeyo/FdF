@@ -1,20 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   close_key.c                                        :+:      :+:    :+:   */
+/*   ft_conv_p.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlistrat <vlistrat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/09/04 11:36:50 by vlistrat          #+#    #+#             */
-/*   Updated: 2016/09/15 16:09:13 by vlistrat         ###   ########.fr       */
+/*   Created: 2016/01/11 13:19:17 by vlistrat          #+#    #+#             */
+/*   Updated: 2016/08/30 11:52:01 by vlistrat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "ft_printf.h"
 
-int		close_key(int keycode, void *param)
+int					ft_conv_p(va_list ap, t_print *lst)
 {
-	if (keycode == 53)
-		exit(EXIT_SUCCESS);
-	return (0);
+	char			*str;
+	unsigned long	p;
+
+	str = NULL;
+	p = va_arg(ap, unsigned long);
+	HEX = "0x";
+	if (!ZEROP)
+	{
+		str = ft_itohex(p);
+		return (ft_padding_str(lst, str));
+	}
+	return (ft_padding_str(lst, ""));
 }

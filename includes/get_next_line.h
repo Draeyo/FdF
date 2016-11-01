@@ -3,25 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlistrat <vlistrat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kboddez <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/01/05 16:50:07 by vlistrat          #+#    #+#             */
-/*   Updated: 2016/01/07 17:51:47 by vlistrat         ###   ########.fr       */
+/*   Created: 2016/02/08 12:25:50 by kboddez           #+#    #+#             */
+/*   Updated: 2016/10/31 16:20:12 by vlistrat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-# define BUFF_SIZE 50
+# define BUFF_SIZE 420
 
-# include <unistd.h>
-# include <stdlib.h>
-# include <fcntl.h>
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <sys/uio.h>
-# include "libft.h"
+typedef struct			s_lig
+{
+	int			c_read;
+	int			fd;
+	int			j;
+	char		mess[409600];
+	struct s_lig	*next;
+	struct s_lig	*first;
+}						t_lig;
 
-int	get_next_line(const int fd, char **line);
+int						get_next_line(int const fd, char **line);
 
 #endif

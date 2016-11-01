@@ -1,20 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   close_key.c                                        :+:      :+:    :+:   */
+/*   ft_s_atoi.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlistrat <vlistrat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/09/04 11:36:50 by vlistrat          #+#    #+#             */
-/*   Updated: 2016/09/15 16:09:13 by vlistrat         ###   ########.fr       */
+/*   Created: 2016/02/17 17:11:18 by vlistrat          #+#    #+#             */
+/*   Updated: 2016/09/12 15:26:06 by vlistrat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "ft_printf.h"
 
-int		close_key(int keycode, void *param)
+int		ft_s_atoi(char *str)
 {
-	if (keycode == 53)
-		exit(EXIT_SUCCESS);
-	return (0);
+	int		ret;
+	int		mult;
+	int		i;
+
+	i = ft_strlen(str) - 1;
+	mult = 1;
+	ret = 0;
+	while (i > -1 && ft_isdigit(str[i]))
+	{
+		ret += ((str[i] - 48) * mult);
+		mult *= 10;
+		i--;
+	}
+	if (str[i] == '-')
+		ret *= -1;
+	return (ret);
 }

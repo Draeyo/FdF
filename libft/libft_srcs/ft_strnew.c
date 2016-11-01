@@ -1,20 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   close_key.c                                        :+:      :+:    :+:   */
+/*   ft_strnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vlistrat <vlistrat@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vlistrat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/09/04 11:36:50 by vlistrat          #+#    #+#             */
-/*   Updated: 2016/09/15 16:09:13 by vlistrat         ###   ########.fr       */
+/*   Created: 2015/11/26 11:40:18 by vlistrat          #+#    #+#             */
+/*   Updated: 2016/10/26 09:28:58 by vlistrat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "libft.h"
 
-int		close_key(int keycode, void *param)
+char	*ft_strnew(size_t size)
 {
-	if (keycode == 53)
-		exit(EXIT_SUCCESS);
-	return (0);
+	char	*ret;
+
+	if (!(ret = (char*)malloc(sizeof(*ret) * size + 1)))
+		return (NULL);
+	ft_bzero(ret, size + 1);
+	return (ret);
 }

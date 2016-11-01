@@ -1,20 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   close_key.c                                        :+:      :+:    :+:   */
+/*   ft_strupper.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlistrat <vlistrat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/09/04 11:36:50 by vlistrat          #+#    #+#             */
-/*   Updated: 2016/09/15 16:09:13 by vlistrat         ###   ########.fr       */
+/*   Created: 2016/01/11 20:13:31 by vlistrat          #+#    #+#             */
+/*   Updated: 2016/01/11 20:25:51 by vlistrat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "ft_printf.h"
 
-int		close_key(int keycode, void *param)
+char	*ft_strupper(char *str)
 {
-	if (keycode == 53)
-		exit(EXIT_SUCCESS);
-	return (0);
+	int		i;
+
+	i = 0;
+	while (str[i])
+	{
+		str[i] = ft_toupper((int)str[i]);
+		i++;
+	}
+	return (str);
 }

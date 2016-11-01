@@ -1,20 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   close_key.c                                        :+:      :+:    :+:   */
+/*   ft_uitooa.c.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlistrat <vlistrat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/09/04 11:36:50 by vlistrat          #+#    #+#             */
-/*   Updated: 2016/09/15 16:09:13 by vlistrat         ###   ########.fr       */
+/*   Created: 2016/01/13 14:37:39 by vlistrat          #+#    #+#             */
+/*   Updated: 2016/08/30 14:08:17 by vlistrat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "ft_printf.h"
 
-int		close_key(int keycode, void *param)
+char	*ft_uitooa(uintmax_t nb)
 {
-	if (keycode == 53)
-		exit(EXIT_SUCCESS);
-	return (0);
+	char	*ret;
+	char	*pnt;
+	int		i;
+
+	i = 0;
+	ret = ft_strnew(ft_nblen(nb) * 2);
+	pnt = ret;
+	if (nb == 0)
+	{
+		ret[0] = '0';
+		return (ret);
+	}
+	while (nb)
+	{
+		ret[i] = (nb % 8) + 48;
+		nb /= 8;
+		i++;
+	}
+	ret = ft_strrev(ret);
+	free(pnt);
+	return (ret);
 }
