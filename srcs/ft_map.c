@@ -6,7 +6,7 @@
 /*   By: vlistrat <vlistrat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/03 10:16:53 by vlistrat          #+#    #+#             */
-/*   Updated: 2016/11/01 09:28:55 by vlistrat         ###   ########.fr       */
+/*   Updated: 2016/11/02 14:09:42 by vlistrat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,22 @@ static int	no_color(char *str)
 	return (1);
 }
 
+static int	ft_line_len(char *tab)
+{
+	int		ret;
+	int		i;
+
+	i = 0;
+	ret = 0;
+	while (tab[i])
+	{
+		if (ft_isdigit(tab[i]) && (tab[i + 1] && (tab[i + 1] == ' ' || tab[i + 1] == '\n' || tab[i + 1] == '\0')))
+				++ret;
+		i++;
+	}
+	return (ret);
+}
+
 int		**get_coord(t_fdf *lst, char **map)
 {
 	char	**str;
@@ -51,24 +67,21 @@ int		**get_coord(t_fdf *lst, char **map)
 	int		j;
 
 	i = 0;
-	ret = (int**)malloc(sizeof(*ret) * B_SIZE);
+	ret = (int**)malloc(sizeof(*ret) * LEN_Y);
 	while (map[i])
 	{
 		j = 0;
-		ret[i] = (int*)malloc(sizeof(int) * A_SIZE);
 		str = ft_strsplit(map[i], ' ');
+		ret[i] = (int*)malloc(sizeof(int) * LINE_LEN);
 		while (str[j])
 		{
-	//		str[j] = ft_cuta(str[j], ',');
 			ret[i][j] = ft_s_atoi(str[j]);
-			ft_printf("%3d", ret[i][j]);
 			j++;
 		}
-		ft_printf("\n");
 		free_split(str);
 		i++;
 	}
-	LEN_X = ft_len_x(map);
+	LEN_X = LINE_LEN;
 	return (ret);
 }
 
@@ -91,9 +104,12 @@ char	**ft_read(t_fdf *lst, char *file)
 			ft_putendl_fd("NO COLOR SUPPORT", 2);
 			exit(EXIT_SUCCESS);
 		}
+		if (!LINE_LEN)
+			LINE_LEN = ft_line_len(temp[i]);
 		LEN_Y++;
 		i++;
 	}
+//	ft_printf("%d\n", LEN_Y);
 	temp[i] = NULL;
 	close(fd);
 	return (temp);

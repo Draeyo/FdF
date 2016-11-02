@@ -6,13 +6,13 @@
 /*   By: vlistrat <vlistrat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/03 09:31:22 by vlistrat          #+#    #+#             */
-/*   Updated: 2016/11/01 08:43:51 by vlistrat         ###   ########.fr       */
+/*   Updated: 2016/11/02 14:23:40 by vlistrat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static void		recalc_xy(t_fdf *lst)
+void		recalc_xy(t_fdf *lst)
 {
 	int		testx;
 	int		testy;
@@ -45,11 +45,13 @@ int				main(int ac, char **av)
 	fd = 0;
 	if (ac != 2)
 		return (0);
+	//ft_printf("\x1b[1;32mFDF INITIALIZED...\x1b[0m\n");
 	addr = (t_pnt*)malloc(sizeof(*addr));
 	lst = (t_fdf*)malloc(sizeof(*lst));
 	image = (t_img*)malloc(sizeof(*image));
 	MLX = mlx_init();
 	struct_init(lst, image, addr);
+	COLOR = WHITE;
 	MAP = ft_read(lst, av[1]);
 	COORD = get_coord(lst, MAP);
 	LENMAX = calc_len_max(lst);
@@ -57,8 +59,10 @@ int				main(int ac, char **av)
 	WIN_X = (((LEN_X * DX) + (LEN_Y * DX)) * 1.5);
 	WIN_Y = (((LEN_Y * DY) + (LEN_X * DY) + ((LENMAX * 3) * DY) + LENMAX));
 	WIN = mlx_new_window(MLX, WIN_X, WIN_Y, "FdF");
+	lst->addr = addr;
+	lst->image = image;
 	ft_put_img(lst, image, addr);
-	mlx_key_hook(WIN, close_key, &lst);
+	mlx_key_hook(WIN, close_key, lst);
 	mlx_loop(MLX);
 	ft_free_listes(lst, addr, image);
 	return (0);
