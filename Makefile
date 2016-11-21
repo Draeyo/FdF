@@ -6,7 +6,7 @@
 #    By: vlistrat <vlistrat@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/09/03 09:30:30 by vlistrat          #+#    #+#              #
-#    Updated: 2016/10/31 15:23:26 by vlistrat         ###   ########.fr        #
+#    Updated: 2016/11/05 10:19:10 by vlistrat         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = fdf
 SRCS_PATH = ./srcs/
 
 SRCS_NAME = main.c ft_map.c close_key.c utility.c ft_alloc.c ft_draw.c \
-			ft_calc.c ft_cutab.c
+			ft_calc.c
 
 SRCS = $(addprefix $(SRCS_PATH),$(SRCS_NAME))
 
@@ -37,7 +37,7 @@ INC = ./includes/
 
 CC = gcc -g
 
-CFLAGS = -I $(INC)
+CFLAGS = -I $(INC) -I ./minilibx_macos/
 
 OBJ = $(SRCS:.c=.o)
 
@@ -45,7 +45,7 @@ all: $(NAME)
 
 $(NAME): makelibft $(OBJ)
 	@(gcc -o $(NAME) $(OBJ) $(LIB_FLAGS))
-	@(echo "$(NAME) created. ✓")
+	@(echo "\x1b[1;35m$(NAME)\x1b[0m \x1b[32mcreated.\x1b[0m \x1b[1;32m✓\x1b[0m")
 
 makelibft:
 	@(make -C $(LIBFT_PATH))
@@ -55,14 +55,14 @@ makelibft:
 
 clean: cleanlibft
 	@(/bin/rm -f $(OBJ))
-	@(echo "FdF object files cleaned. ✓")
+	@(echo "\x1b[1;35mFdF\x1b[0m object files \x1b[31mcleaned.\x1b[0m \x1b[1;32m✓\x1b[0m")
 
 cleanlibft:
 	@(make -C $(LIBFT_PATH) clean)
 
 fclean: clean fcleanlibft
 	@(/bin/rm -f $(NAME))
-	@(echo "$(NAME) cleaned. ✓")
+	@(echo "\x1b[1;35m$(NAME)\x1b[0m \x1b[31mcleaned\x1b[0m. \x1b[1;32m✓\x1b[0m")
 
 fcleanlibft:
 	@(make -C $(LIBFT_PATH) fclean)

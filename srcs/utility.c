@@ -6,7 +6,7 @@
 /*   By: vlistrat <vlistrat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/03 15:29:10 by vlistrat          #+#    #+#             */
-/*   Updated: 2016/11/02 14:25:20 by vlistrat         ###   ########.fr       */
+/*   Updated: 2016/11/05 09:46:43 by vlistrat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	struct_init(t_fdf *lst, t_img *image, t_pnt *addr)
 {
-//	if (!LEN_X)
+	if (!LEN_X)
 		LEN_X = 0;
-//	if (!LEN_Y)
+	if (!LEN_Y)
 		LEN_Y = 0;
 	IMG = NULL;
 	BPP = 0;
@@ -45,7 +45,9 @@ int		ft_error_fdf(int e)
 		ft_putendl_fd("Map size is too high.", 2);
 	else if (e == 4)
 		ft_putendl_fd("Invalid file descriptor.", 2);
-	exit(EXIT_FAILURE);
+	else if (e == 5)
+		ft_putendl_fd("Invalid symbols.", 2);
+	exit(EXIT_SUCCESS);
 	return (0);
 }
 

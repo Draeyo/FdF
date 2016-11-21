@@ -6,7 +6,7 @@
 /*   By: vlistrat <vlistrat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/03 09:32:37 by vlistrat          #+#    #+#             */
-/*   Updated: 2016/11/02 13:46:35 by vlistrat         ###   ########.fr       */
+/*   Updated: 2016/11/05 10:12:42 by vlistrat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,6 @@
 # include <stdio.h>
 # include <string.h>
 # include <fcntl.h>
-
-
-# define DEBUG ft_printf("DEBUG\n");
 
 # define A_SIZE 4096
 # define B_SIZE 2048
@@ -144,8 +141,6 @@ int					close_key(int keycode, void *param);
 int					ft_error_fdf(int e);
 int					calc_len_max(t_fdf *lst);
 
-char				*ft_cutab(char *str, int a, int b);
-char				*ft_cuta(char *str, int a);
 /*
 **	Allocation / free
 */

@@ -6,7 +6,7 @@
 /*   By: vlistrat <vlistrat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/03 10:16:53 by vlistrat          #+#    #+#             */
-/*   Updated: 2016/11/02 14:09:42 by vlistrat         ###   ########.fr       */
+/*   Updated: 2016/11/05 09:46:59 by vlistrat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void		free_split(char **str)
 	free(str);
 }
 
-static int	no_color(char *str)
+static int		no_color(char *str)
 {
 	int		i;
 
@@ -43,7 +43,7 @@ static int	no_color(char *str)
 	return (1);
 }
 
-static int	ft_line_len(char *tab)
+static int		ft_line_len(char *tab)
 {
 	int		ret;
 	int		i;
@@ -52,14 +52,15 @@ static int	ft_line_len(char *tab)
 	ret = 0;
 	while (tab[i])
 	{
-		if (ft_isdigit(tab[i]) && (tab[i + 1] && (tab[i + 1] == ' ' || tab[i + 1] == '\n' || tab[i + 1] == '\0')))
-				++ret;
+		if (ft_isdigit(tab[i]) && (tab[i + 1] && (tab[i + 1] == ' '
+						|| tab[i + 1] == '\n' || tab[i + 1] == '\0')))
+			++ret;
 		i++;
 	}
 	return (ret);
 }
 
-int		**get_coord(t_fdf *lst, char **map)
+int				**get_coord(t_fdf *lst, char **map)
 {
 	char	**str;
 	int		**ret;
@@ -68,6 +69,7 @@ int		**get_coord(t_fdf *lst, char **map)
 
 	i = 0;
 	ret = (int**)malloc(sizeof(*ret) * LEN_Y);
+	LEN_X = 0;
 	while (map[i])
 	{
 		j = 0;
@@ -85,13 +87,14 @@ int		**get_coord(t_fdf *lst, char **map)
 	return (ret);
 }
 
-char	**ft_read(t_fdf *lst, char *file)
+char			**ft_read(t_fdf *lst, char *file)
 {
 	int		fd;
 	char	**temp;
 	int		i;
 
 	i = 0;
+	LEN_Y = 0;
 	temp = (char**)malloc(sizeof(*temp) * B_SIZE);
 	if ((fd = open(file, O_RDONLY)) < 0)
 		ft_error_fdf(4);
@@ -100,16 +103,12 @@ char	**ft_read(t_fdf *lst, char *file)
 		if (temp[0] == '\0')
 			exit(EXIT_SUCCESS);
 		if (!no_color(temp[i]))
-		{
-			ft_putendl_fd("NO COLOR SUPPORT", 2);
-			exit(EXIT_SUCCESS);
-		}
+			ft_error_fdf(5);
 		if (!LINE_LEN)
 			LINE_LEN = ft_line_len(temp[i]);
 		LEN_Y++;
 		i++;
 	}
-//	ft_printf("%d\n", LEN_Y);
 	temp[i] = NULL;
 	close(fd);
 	return (temp);

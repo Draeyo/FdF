@@ -6,60 +6,72 @@
 /*   By: vlistrat <vlistrat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/23 12:31:46 by vlistrat          #+#    #+#             */
-/*   Updated: 2016/08/23 12:32:50 by vlistrat         ###   ########.fr       */
+/*   Updated: 2016/11/05 10:07:20 by vlistrat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int			calc_len(intmax_t nb)
+static int		calc_len(intmax_t nb)
 {
 	int		len;
 
 	len = 0;
 	if (nb < 0)
-		return ((len = ft_nblen(nb) - 1));
-	else
-		return ((len = ft_nblen(nb)));
+	{
+		len++;
+		nb *= -1;
+	}
+	else if (nb == 0)
+		return (1);
+	while (nb)
+	{
+		nb /= 10;
+		len++;
+	}
+	return (len);
 }
 
-static intmax_t		calc_div(int len)
+static char		*ret_zero(char *ret)
 {
-	intmax_t	div;
-
-	div = 1;
-	while (--len)
-		div *= 10;
-	return (div);
+	ret[0] = '0';
+	return (ret);
 }
 
-char				*ft_xtoa(intmax_t nb)
+char			*get_alpha(char *ret, uintmax_t n, char *stock, int i)
 {
-	intmax_t	div;
+	while (n)
+	{
+		ret[i] = stock[n % 10];
+		n /= 10;
+		i--;
+	}
+	return (ret);
+}
+
+char			*ft_xtoa(intmax_t nb)
+{
 	uintmax_t	n;
 	char		*ret;
-	int			len;
+	char		*stock;
 	int			i;
+	int			neg;
 
-	i = 0;
-	len = calc_len(nb);
-	div = calc_div(len);
-	ret = ft_strnew(len + 1);
+	i = calc_len(nb);
+	neg = 0;
+	ret = ft_strnew(i);
+	stock = "0123456789";
 	if (nb < 0)
+	{
+		neg = 1;
 		n = nb * -1;
+	}
 	else
-		n = nb;
+		n = (uintmax_t)nb;
 	if (nb == 0)
-	{
-		ret[0] = '0';
-		return (ret);
-	}
-	while (len--)
-	{
-		ret[i] = ((n / div) + 48);
-		n -= ((n / div) * div);
-		div /= 10;
-		i++;
-	}
+		return (ret_zero(ret));
+	ret = get_alpha(ret, n, stock, i);
+	if (neg)
+		ret[i] = '-';
 	return (ret);
 }
